@@ -54,15 +54,29 @@ public class Algebra {
         return result;
     }
 
-	// Returns x1 * x2
-	public static int times(int x1, int x2) {
+    public static int times(int x1, int x2) {
         int result = 0;
+        
+        // Check the signs of x1 and x2 to determine if the result should be positive or negative
+        boolean negativeResult = (x1 < 0 && x2 >= 0) || (x1 >= 0 && x2 < 0);  // If signs are different, result will be negative
+    
+        // Work with absolute values of x1 and x2 for the multiplication
+        x1 = Math.abs(x1);
+        x2 = Math.abs(x2);
+    
+        // Multiply by adding x1 to result, x2 times
         while (x2 > 0) {
             result = plus(result, x1);  // Add x1 to result, x2 times
             x2--;
         }
+    
+        // If the result should be negative, subtract the result from 0
+        if (negativeResult) {
+            result = minus(0, result);  // Convert to negative if needed
+        }
+    
         return result;
-	}
+    }
 
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
@@ -74,15 +88,30 @@ public class Algebra {
         return result;
 	}
 
-	// Returns the integer part of x1 / x2 
-	public static int div(int x1, int x2) {
+    public static int div(int x1, int x2) {
+        // Handle division by zero
+        if (x2 == 0) {
+            throw new ArithmeticException("Division by zero");
+        }
+    
         int result = 0;
+    
+        boolean negativeResult = (x1 < 0 && x2 >= 0) || (x1 >= 0 && x2 < 0);  // Signs are different
+    
+        x1 = Math.abs(x1);
+        x2 = Math.abs(x2);
+    
         while (x1 >= x2) {
             x1 = minus(x1, x2);  // Subtract x2 from x1
             result++;  // Increment result for each subtraction
         }
+    
+        if (negativeResult) {
+            result = minus(0, result);  // Make result negative
+        }
+    
         return result;
-	}
+    }
 
 	// Returns x1 % x2
 	public static int mod(int x1, int x2) {
