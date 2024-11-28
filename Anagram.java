@@ -68,7 +68,7 @@ public class Anagram {
                 result.append(c);  // Keep spaces
             }
         }
-
+    
         return result.toString();
 	} 
 	   

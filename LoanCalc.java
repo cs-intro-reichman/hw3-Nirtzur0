@@ -54,7 +54,7 @@ public class LoanCalc {
             balance = endBalance(loan, rate, n, payment);  // Recalculate balance with new payment
             iterationCounter++;  // Increment iteration counter
 
-            // Dynamically adjust step size based on balance to speed up the convergence
+            // Dynamically adjust step size based on balance to speed up convergence
             if (Math.abs(balance) > 0) {
                 stepSize = Math.min(stepSize * 2, 1000);  // Increase step size up to a maximum limit
             } else {
