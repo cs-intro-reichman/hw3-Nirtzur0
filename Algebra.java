@@ -25,19 +25,34 @@ public class Algebra {
 
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
-        if(x2 == 0) return x1;
-        int sum = x1 ^ x2; //SUM of two integer is A XOR B
-        int carry = (x1 & x2) << 1;  //CARRY of two integer is A AND B
-        return plus(sum, carry);
-	}
+        int result = x1;
+        // If x2 is positive, add 1 to x1, x2 times
+        while (x2 > 0) {
+            result++;  
+            x2--;
+        }
+        // If x2 is negative, subtract 1 from x1, |x2| times
+        while (x2 < 0) {
+            result--;  
+            x2++;
+        }
+        return result;
+    }
 
     public static int minus(int x1, int x2) {
-        if (x2 == 0) {
-            return x1;
-          }
-      
-          return minus(x1 ^ x2, (~x1 & x2) << 1);
+        int result = x1;
+        // If x2 is positive, subtract 1 from x1, x2 times
+        while (x2 > 0) {
+            result--;
+            x2--;
         }
+        // If x2 is negative, add 1 to x1, |x2| times
+        while (x2 < 0) {
+            result++;
+            x2++;
+        }
+        return result;
+    }
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
