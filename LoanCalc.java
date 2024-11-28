@@ -44,16 +44,16 @@ public class LoanCalc {
         double payment = loan / n;  // Initial guess for the payment (without interest)
         double balance = endBalance(loan, rate, n, payment);
         iterationCounter = 0;  // Reset iteration counter
-
+    
         // Brute force search: adjust payment dynamically to converge more efficiently
-        double stepSize = 1;  // Initial step size
+        double stepSize = 10;  // Initial step size (larger increments)
         int maxIterations = 10000;  // Maximum iterations to avoid infinite loops
-
+    
         while (Math.abs(balance) > epsilon && iterationCounter < maxIterations) {
             payment += stepSize;  // Adjust payment
             balance = endBalance(loan, rate, n, payment);  // Recalculate balance with new payment
             iterationCounter++;  // Increment iteration counter
-
+    
             // Dynamically adjust step size based on balance to speed up convergence
             if (Math.abs(balance) > 0) {
                 stepSize = Math.min(stepSize * 2, 1000);  // Increase step size up to a maximum limit
@@ -61,12 +61,12 @@ public class LoanCalc {
                 stepSize = Math.max(stepSize / 2, 1);  // Decrease step size when balance gets closer to zero
             }
         }
-
+    
         // If the loop exceeded max iterations, throw an error to prevent getting stuck
         if (iterationCounter >= maxIterations) {
             System.out.println("Brute force search reached maximum iterations without convergence.");
         }
-
+    
         return payment;
     }
     
