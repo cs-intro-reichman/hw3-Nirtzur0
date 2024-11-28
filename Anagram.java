@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /** Functions for checking if a given string is an anagram. */
 public class Anagram {
 	public static void main(String args[]) {
@@ -28,22 +33,63 @@ public class Anagram {
 
 	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
-		// Replace the following statement with your code
-		return false;
+// Pre-process both strings
+        str1 = preProcess(str1).replaceAll(" ", "");
+        str2 = preProcess(str2).replaceAll(" ", "");
+
+        // If the lengths are not the same after preprocessing, they can't be anagrams
+        if (str1.length() != str2.length()) {
+            return false;
+        }
+
+        // Convert both strings to character arrays
+        char[] arr1 = str1.toCharArray();
+        char[] arr2 = str2.toCharArray();
+
+        // Sort both arrays
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+
+        // Compare the sorted arrays
+        return Arrays.equals(arr1, arr2);
 	}
 	   
 	// Returns a preprocessed version of the given string: all the letter characters are converted
 	// to lower-case, and all the other characters are deleted, except for spaces, which are left
 	// as is. For example, the string "What? No way!" becomes "whatnoway"
 	public static String preProcess(String str) {
-		// Replace the following statement with your code
-		return "";
+        StringBuilder result = new StringBuilder();
+
+        // Process each character in the string
+        for (char c : str.toCharArray()) {
+            if (Character.isLetter(c)) {
+                result.append(Character.toLowerCase(c));  // Add lowercase letter
+            } else if (c == ' ') {
+                result.append(c);  // Keep spaces
+            }
+        }
+    
+        return result.toString();
 	} 
 	   
 	// Returns a random anagram of the given string. The random anagram consists of the same
 	// characters as the given string, re-arranged in a random order. 
 	public static String randomAnagram(String str) {
-		// Replace the following statement with your code
-		return "";
+        // Convert the string to a list of characters
+        List<Character> charList = new ArrayList<>();
+        for (char c : str.toCharArray()) {
+            charList.add(c);
+        }
+
+        // Shuffle the list to create a random anagram
+        Collections.shuffle(charList);
+
+        // Build a string from the shuffled list of characters
+        StringBuilder anagram = new StringBuilder();
+        for (char c : charList) {
+            anagram.append(c);
+        }
+
+        return anagram.toString();
 	}
 }
