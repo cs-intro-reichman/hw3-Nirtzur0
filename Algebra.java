@@ -25,22 +25,36 @@ public class Algebra {
 
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
-        int result = x1;
-        while (x2 > 0) {
-            result++;  // Add 1 to x1, x2 times
-            x2--;
-        }
-        return result;
+    // Handle when x2 is negative
+    if (x2 < 0) {
+        // Adding a negative value is like subtracting the absolute value
+        return minus(x1, Math.abs(x2));
+    }
+
+    // Handle when x2 is positive or zero
+    int result = x1;
+    while (x2 > 0) {
+        result++;  // Increment result by 1, x2 times
+        x2--;
+    }
+    return result;
 	}
 
 	// Returns x1 - x2
 	public static int minus(int x1, int x2) {
-        int result = x1;
-        while (x2 > 0) {
-            result--;  // Subtract 1 from x1, x2 times
-            x2--;
-        }
-        return result;
+    // If both numbers are negative
+    if (x1 < 0 && x2 < 0) {
+        // Subtracting two negative numbers: result is the difference, negative
+        return -plus(Math.abs(x1), Math.abs(x2));
+    }
+
+    // If one of the numbers is negative, use the existing method
+    int result = x1;
+    while (x2 > 0) {
+        result--;  // Decrement result by 1, x2 times
+        x2--;
+    }
+    return result;
 	}
 
 	// Returns x1 * x2
