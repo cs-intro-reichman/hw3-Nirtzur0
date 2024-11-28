@@ -49,12 +49,15 @@ public class LoanCalc {
             iterationCounter++;
             double balance = endBalance(loan, rate, n, payment);
     
-            if (Math.abs(balance) <= epsilon) {  // If the balance is close to 0, stop the search
+            // If the balance is close to zero, stop the search
+            if (Math.abs(balance) <= epsilon) {
                 break;
             }
     
-            payment += epsilon;  // Increment payment to reduce balance
+            // Gradually adjust payment to get closer to the correct balance
+            payment += epsilon;  // This may need to be smaller depending on the desired precision
         }
+        
         return payment;
     }
 
