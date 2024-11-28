@@ -34,8 +34,8 @@ public class Anagram {
 	// Returns true if the two given strings are anagrams, false otherwise.
 	public static boolean isAnagram(String str1, String str2) {
 // Pre-process both strings
-        str1 = preProcess(str1);
-        str2 = preProcess(str2);
+        str1 = preProcess(str1).replaceAll(" ", "");
+        str2 = preProcess(str2).replaceAll(" ", "");
 
         // If the lengths are not the same after preprocessing, they can't be anagrams
         if (str1.length() != str2.length()) {
