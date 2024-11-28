@@ -25,37 +25,53 @@ public class Algebra {
 
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
-    // Handle when x2 is negative
-    if (x2 < 0) {
-        // Adding a negative value is like subtracting the absolute value
-        return minus(x1, Math.abs(x2));
-    }
+        // If both are positive, add normally
+        if (x1 >= 0 && x2 >= 0) {
+            int result = x1;
+            while (x2 > 0) {
+                result++;  // Add 1 to result, x2 times
+                x2--;
+            }
+            return result;
+        }
 
-    // Handle when x2 is positive or zero
-    int result = x1;
-    while (x2 > 0) {
-        result++;  // Increment result by 1, x2 times
-        x2--;
-    }
-    return result;
+        // If one number is negative, handle like moving in the negative direction
+        if (x1 >= 0 && x2 < 0) {
+            return minus(x1, Math.abs(x2)); // Subtract the absolute value of x2 from x1
+        }
+
+        if (x1 < 0 && x2 >= 0) {
+            return minus(x2, Math.abs(x1)); // Subtract the absolute value of x1 from x2
+        }
+
+        // If both are negative, add them by subtracting their absolute values
+        return -(plus(Math.abs(x1), Math.abs(x2)));  // Add the absolute values and make the result negative
+
 	}
 
-	// Returns x1 - x2
-	public static int minus(int x1, int x2) {
-    // If both numbers are negative
-    if (x1 < 0 && x2 < 0) {
-        // Subtracting two negative numbers: result is the difference, negative
-        return -plus(Math.abs(x1), Math.abs(x2));
+    public static int minus(int x1, int x2) {
+        // If both are positive, subtract normally
+        if (x1 >= 0 && x2 >= 0) {
+            int result = x1;
+            while (x2 > 0) {
+                result--;  // Subtract 1 from result, x2 times
+                x2--;
+            }
+            return result;
+        }
+    
+        // If one of the numbers is negative, handle appropriately
+        if (x1 >= 0 && x2 < 0) {
+            return plus(x1, Math.abs(x2));  // Adding a negative is like subtracting
+        }
+    
+        if (x1 < 0 && x2 >= 0) {
+            return plus(x1, -x2);  // Negative minus positive is like adding a negative
+        }
+    
+        // If both are negative, subtract the absolute values and return the result as negative
+        return plus(Math.abs(x1), Math.abs(x2)) * -1; // Subtract and return as negative
     }
-
-    // If one of the numbers is negative, use the existing method
-    int result = x1;
-    while (x2 > 0) {
-        result--;  // Decrement result by 1, x2 times
-        x2--;
-    }
-    return result;
-	}
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
